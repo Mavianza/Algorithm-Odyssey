@@ -2,8 +2,8 @@ public class Main {
     public static void main(String[] args) {
         Linkedlist_item item = new Linkedlist_item();
         //setiap level itemnya berbeda untuk player;
-        NodePlayer dael = new NodePlayer("dael", 0, 0, 0);
-        NodeItem Playerlevel_1 = new NodeItem("bero", 0, null);
+        NodePlayer dael = new NodePlayer("dael", 0, 0, 0, "player");
+        NodeItem Playerlevel_1 = new NodeItem("bero", 0, false);
         NodeItem.Potion healing = Playerlevel_1.new Potion("healing", 0, false, 0, 0);
 
         //Menambahkan semua level ke dalam linkedlist
