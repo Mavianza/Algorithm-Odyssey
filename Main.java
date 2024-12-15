@@ -2,6 +2,7 @@ public class Main {
     public static void main(String[] args) {
         Linkedlist_item item = new Linkedlist_item();
         //setiap level itemnya berbeda untuk player
+
         NodeItem Playerlevel_1 = new NodeItem(null, 0, false);
         NodeItem Playerlevel_2 = new NodeItem(null, 0, false);
         NodeItem Playerlevel_3 = new NodeItem(null, 0, false);
@@ -17,5 +18,4 @@ public class Main {
         item.tambahData(Playerlevel_5);
         item.tambahData(Playerlevel_6);
     }
-    
 }

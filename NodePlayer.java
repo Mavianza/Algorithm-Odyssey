@@ -5,7 +5,7 @@ public class NodePlayer{
     int attackPlayer;
     int defensePlayer;
     NodePlayer next = null;
-    public NodePlayer(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer) {
+    public NodePlayer(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer, String skillPlayer) {
         this.namaPlayer = namaPlayer;
         this.skillPlayer = skillPlayer;
         this.healthPlayer = healthPlayer;
