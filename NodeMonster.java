@@ -5,7 +5,7 @@ public class NodeMonster{
     int defenseMonster;
     NodeMonster next = null;
 
-    public NodeMonster(String namaMonster, int healthMonster, int damageMonster, int defenseMonster) {
+    public NodeMonster(String namaMonster, int healthMonster, int damageMonster, int defenseMonster,int attackMonster) {
         this.namaMonster = namaMonster;
         this.healthMonster = healthMonster;
         this.attackMonster = attackMonster;
