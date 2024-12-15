@@ -29,9 +29,11 @@ public class NodeItem {
     
     class Potion extends NodeItem {
         int healingAmount;
-        Potion(String namaItem, int damage, boolean item_khusus, int healingAmount) {
+        int attackAmount;
+        Potion(String namaItem, int damage, boolean item_khusus, int healingAmount, int attackAmount) {
             super(namaItem, damage, item_khusus);
             this.healingAmount = healingAmount;
+            this.attackAmount = attackAmount;
         }
     }
 }
