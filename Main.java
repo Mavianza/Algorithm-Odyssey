@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
-        Linkedlist_item item = new Linkedlist_item();
-        //setiap level itemnya berbeda untuk player;
         NodePlayer pemain = new NodePlayer("pemain", 0, 0, 0, "player");
+        //Item leve
+        Linkedlist_item item = new Linkedlist_item();
         NodeItem Backpack = new NodeItem("ber", 0, false);
         NodeItem.Weapon weapon_1 = Backpack.new Weapon("Shadowfang", 0, false, 0);
         NodeItem.Armor armor_1 = Backpack.new Armor("Nightshade Plate", 0, false, 0);
@@ -27,5 +27,25 @@ public class Main {
         NodeItem.Weapon weapon_6 = Backpack.new Weapon("Soulpiercer", 0, false, 0);
         NodeItem.Armor armor_6 = Backpack.new Armor("Astral Mantle", 0, false, 0);
         NodeItem.Potion potion_6 = Backpack.new Potion("Crimson Nectar", 0, false, 0, 0);
+
+        item.tambahData(weapon_1);
+        item.tambahData(weapon_2);
+        item.tambahData(weapon_3);
+        item.tambahData(weapon_4);
+        item.tambahData(weapon_5);
+        item.tambahData(weapon_6);
+        item.tambahData(armor_1);
+        item.tambahData(armor_2);
+        item.tambahData(armor_3);
+        item.tambahData(armor_4);
+        item.tambahData(armor_5);
+        item.tambahData(armor_6);
+        item.tambahData(potion_1);
+        item.tambahData(potion_2);
+        item.tambahData(potion_3);
+        item.tambahData(potion_4);
+        item.tambahData(potion_5);
+        item.tambahData(potion_6);
+        //Bagian Monster
     }   
 }
