@@ -1,16 +1,23 @@
-public class NodePlayer{
+public class NodePlayer {
     String namaPlayer;
     int healthPlayer;
     int attackPlayer;
     int defensePlayer;
-    NodePlayer next = null;
+    Inventory inventory; // Menyimpan senjata, skill, dan item
+
     public NodePlayer(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer) {
         this.namaPlayer = namaPlayer;
         this.healthPlayer = healthPlayer;
         this.attackPlayer = attackPlayer;
         this.defensePlayer = defensePlayer;
-        this.next = null;
+        this.inventory = new Inventory();
+        
+        // Menambahkan beberapa item ke inventory untuk contoh
+        inventory.addItem("Shadowfang"); // Senjata
+        inventory.addItem("Fireball"); // Skill
+        inventory.addItem("Health Potion"); // Item
     }
+}
     
     class skillSatu extends NodePlayer{
         int attackSkill1;
@@ -33,4 +40,3 @@ public class NodePlayer{
             this.heal = heal;
         }
     }
-}
