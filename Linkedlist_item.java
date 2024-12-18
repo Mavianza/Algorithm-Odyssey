@@ -10,4 +10,14 @@ public class Linkedlist_item {
             this.tail = n;
         }
     }
+
+    void displayItems() {
+        NodeItem current = head;
+        int index = 1;
+        while (current != null) {
+            System.out.println(index + ". " + current.namaItem);
+            current = current.next;
+            index++;
+        }
+    }
 }
