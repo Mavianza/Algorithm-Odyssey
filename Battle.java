@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Battle {
-    public static void fight(NodePlayer player, NodeMonster monster) {
+    public static void fight(NodePlayer player, NodeMonster monster, Skill Skillmanager) {
         Scanner scanner = new Scanner(System.in);
         AttackStack attackStack = new AttackStack();
 
@@ -34,12 +34,13 @@ public class Battle {
                 case 2:
                     // Pilih skill
                     System.out.println("Choose your skill:");
-                    System.out.println("1. Blazing Strike");
-                    System.out.println("2. Mystic Barrier");
-                    System.out.println("Divine Restoration");
-                    // Tambahkan lebih banyak skill jika ada
+                    System.out.println("1. "+ Skillmanager.skill1.namaPlayer);
+                    System.out.println("2. "+ Skillmanager.skill2.namaPlayer);
+                    System.out.println("3. "+ Skillmanager.skill3.namaPlayer);
+                    // Tambahkan lebih banyak skill jika ada ambil dari class skill
                     int skillChoice = scanner.nextInt();
-                    String skillAction = "Use Fireball"; // Ganti dengan logika skill jika ada
+                    Skillmanager.tambahSkill(skillChoice);
+                    String skillAction = Skillmanager.skill.namaPlayer;
                     attackStack.addAttack(skillAction);
                     break;
 
