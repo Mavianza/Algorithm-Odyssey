@@ -21,22 +21,22 @@ public class NodePlayer {
     
     class skillSatu extends NodePlayer{
         int attackSkill1;
-        public skillSatu(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer, int attackSkill1){
-            super(namaPlayer, healthPlayer, attackPlayer, defensePlayer);
+        public skillSatu(String namaSkill, int healthPlayer, int attackPlayer, int defensePlayer, int attackSkill1){
+            super(namaSkill, healthPlayer, attackPlayer, defensePlayer);
             this.attackSkill1 = attackSkill1;
         }
     }
     class skillDua extends NodePlayer{
         int attackSkill2;
-        public skillDua(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer, int attackSkill2){
-            super(namaPlayer, healthPlayer, attackPlayer, defensePlayer);
+        public skillDua(String namaSkill, int healthPlayer, int attackPlayer, int defensePlayer, int attackSkill2){
+            super(namaSkill, healthPlayer, attackPlayer, defensePlayer);
             this.attackSkill2 = attackSkill2;
         }
     }
     class skillTiga extends NodePlayer{
         int heal;
-        public skillTiga(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer, int heal){
-            super(namaPlayer, healthPlayer, attackPlayer, defensePlayer);
+        public skillTiga(String namaSkill, int healthPlayer, int attackPlayer, int defensePlayer, int heal){
+            super(namaSkill, healthPlayer, attackPlayer, defensePlayer);
             this.heal = heal;
         }
     }

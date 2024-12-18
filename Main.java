@@ -47,7 +47,6 @@ public class Main {
         item.tambahData(potion_2);
         item.tambahData(potion_3);
         item.tambahData(potion_4);
-
         item.tambahData(potion_5);
         item.tambahData(potion_6);
 
