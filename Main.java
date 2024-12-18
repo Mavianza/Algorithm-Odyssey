@@ -60,6 +60,7 @@ public class Main {
 
         // Memulai pertarungan dengan monster pertama
         Battle.fight(player, monster1);
+        Battle.fight(player, monster2);
 
         // Jika pemain masih hidup, lanjutkan ke monster berikutnya
         if (player.healthPlayer > 0) {
