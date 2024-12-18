@@ -22,15 +22,8 @@ public class Main {
         item.tambahData(armor_2);
         item.tambahData(potion_1);
         item.tambahData(potion_2);
-<<<<<<< HEAD
-        item.tambahData(potion_3);
-        item.tambahData(potion_4);
-        item.tambahData(potion_5);
-        item.tambahData(potion_6);
-=======
 
         item.displayItems();
->>>>>>> 381222c6921f1681bf474d9085732b60f0fff678
 
         // Membuat monster
         NodeMonster monster1 = new NodeMonster("Goblin", 30, 5, 2, 5);
