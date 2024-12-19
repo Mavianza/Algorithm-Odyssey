@@ -1,7 +1,7 @@
 public class Linkedlist_monster {
-    NodeMonster head = null;
-    NodeMonster tail = null;
-    void tambahData(NodeMonster n){
+    Components.NodeMonster head = null;
+    Components.NodeMonster tail = null;
+    void tambahData(Components.NodeMonster n){
         if(this.head==null){
             this.head = n;
             this.tail = head;
