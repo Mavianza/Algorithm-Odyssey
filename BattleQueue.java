@@ -1,10 +1,10 @@
 public class BattleQueue {
     class Node {
-        NodePlayer player;
-        NodeMonster monster;
+        Components.NodePlayer player;
+        Components.NodeMonster monster;
         Node next;
 
-        Node(NodePlayer player, NodeMonster monster) {
+        Node(Components.NodePlayer player, Components.NodeMonster monster) {
             this.player = player;
             this.monster = monster;
             this.next = null;
@@ -19,7 +19,7 @@ public class BattleQueue {
         tail = null;
     }
 
-    public void add(NodePlayer player, NodeMonster monster) {
+    public void add(Components.NodePlayer player, Components.NodeMonster monster) {
         Node newNode = new Node(player, monster);
         if (head == null) {
             head = newNode;

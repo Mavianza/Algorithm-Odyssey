@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 public class Battle {
-    public static void fight(NodePlayer player, NodeMonster monster, Skill Skillmanager, Linkedlist_item inventory) {
+    public static void fight(Components.NodePlayer player, Components.NodeMonster monster, Components.Skill Skillmanager, Linkedlist_item inventory) {
         Scanner scanner = new Scanner(System.in);
-        AttackStack attackStack = new AttackStack();
+        Components.AttackStack attackStack = new Components.AttackStack();
 
         while (player.healthPlayer > 0 && monster.healthMonster > 0) {
             // Display health status
@@ -28,16 +28,39 @@ public class Battle {
                     attackStack.addAttack(weaponAction);
                     break;
 
-                case 2:
+                    case 2:
                     System.out.println("Choose your skill:");
                     System.out.println("1. " + Skillmanager.skill1.namaPlayer);
                     System.out.println("2. " + Skillmanager.skill2.namaPlayer);
                     System.out.println("3. " + Skillmanager.skill3.namaPlayer);
                     int skillChoice = scanner.nextInt();
-                    Skillmanager.tambahSkill(skillChoice);
-                    String skillAction = Skillmanager.skill.namaPlayer;
+                
+                    String skillAction;
+                    switch (skillChoice) {
+                        case 1: // Blazing Strike
+                            skillAction = Skillmanager.skill1.namaPlayer;
+                            monster.healthMonster -= Skillmanager.skill1.attackSkill1;
+                            System.out.println(player.namaPlayer + " uses " + skillAction + " for " + Skillmanager.skill1.attackSkill1 + " damage!");
+                            break;
+                
+                        case 2: // Mystic Barrier
+                            skillAction = Skillmanager.skill2.namaPlayer;
+                            player.defensePlayer += Skillmanager.skill2.attackSkill2;
+                            System.out.println(player.namaPlayer + " uses " + skillAction + " and gains " + Skillmanager.skill2.attackSkill2 + " defense!");
+                            break;
+                
+                        case 3: // Divine Restoration
+                            skillAction = Skillmanager.skill3.namaPlayer;
+                            player.healthPlayer += Skillmanager.skill3.heal;
+                            System.out.println(player.namaPlayer + " uses " + skillAction + " and heals for " + Skillmanager.skill3.heal + " health!");
+                            break;
+                
+                        default:
+                            System.out.println("Invalid skill choice.");
+                            continue;
+                    }
                     attackStack.addAttack(skillAction);
-                    break;
+                    break;                
 
                 case 3:
                     System.out.println("Choose your item type:");
@@ -95,9 +118,9 @@ public class Battle {
         }
     }
 
-    private static void executeAction(String action, NodePlayer player, NodeMonster monster, Linkedlist_item inventory) {
+    private static void executeAction(String action, Components.NodePlayer player, Components.NodeMonster monster, Linkedlist_item inventory) {
         // Find the item in inventory
-        NodeItem currentItem = inventory.head;
+        Components.NodeItem currentItem = inventory.head;
         while (currentItem != null) {
             if (currentItem.namaItem.equals(action)) {
                 break;
@@ -108,8 +131,8 @@ public class Battle {
         switch (action) {
             // Weapons
             case "Shadowfang":
-                if (currentItem instanceof NodeItem.Weapon) {
-                    NodeItem.Weapon weapon = (NodeItem.Weapon) currentItem;
+                if (currentItem instanceof Components.NodeItem.Weapon) {
+                    Components.NodeItem.Weapon weapon = (Components.NodeItem.Weapon) currentItem;
                     int damage = player.attackPlayer + weapon.power;
                     monster.healthMonster -= damage;
                     System.out.println(player.namaPlayer + " attacks with Shadowfang for " + damage + " damage!");
@@ -117,8 +140,8 @@ public class Battle {
                 break;
 
             case "Crimson Vortex":
-                if (currentItem instanceof NodeItem.Weapon) {
-                    NodeItem.Weapon weapon = (NodeItem.Weapon) currentItem;
+                if (currentItem instanceof Components.NodeItem.Weapon) {
+                    Components.NodeItem.Weapon weapon = (Components.NodeItem.Weapon) currentItem;
                     int damage = (int)((player.attackPlayer + weapon.power) * 1.2); // 20% bonus damage
                     monster.healthMonster -= damage;
                     System.out.println(player.namaPlayer + " unleashes Crimson Vortex for " + damage + " damage!");
@@ -127,16 +150,16 @@ public class Battle {
 
             // Armor
             case "Nightshade Plate":
-                if (currentItem instanceof NodeItem.Armor) {
-                    NodeItem.Armor armor = (NodeItem.Armor) currentItem;
+                if (currentItem instanceof Components.NodeItem.Armor) {
+                    Components.NodeItem.Armor armor = (Components.NodeItem.Armor) currentItem;
                     player.defensePlayer += armor.defense;
                     System.out.println(player.namaPlayer + " equips Nightshade Plate and gains " + armor.defense + " defense!");
                 }
                 break;
 
             case "Ironveil":
-                if (currentItem instanceof NodeItem.Armor) {
-                    NodeItem.Armor armor = (NodeItem.Armor) currentItem;
+                if (currentItem instanceof Components.NodeItem.Armor) {
+                    Components.NodeItem.Armor armor = (Components.NodeItem.Armor) currentItem;
                     player.defensePlayer += armor.defense;
                     System.out.println(player.namaPlayer + " equips Ironveil and gains " + armor.defense + " defense!");
                 }
@@ -144,8 +167,8 @@ public class Battle {
 
             // Potions
             case "Elixir of Shadows":
-                if (currentItem instanceof NodeItem.Potion) {
-                    NodeItem.Potion potion = (NodeItem.Potion) currentItem;
+                if (currentItem instanceof Components.NodeItem.Potion) {
+                    Components.NodeItem.Potion potion = (Components.NodeItem.Potion) currentItem;
                     player.attackPlayer += potion.attackAmount;
                     player.healthPlayer += potion.healingAmount;
                     System.out.println(player.namaPlayer + " drinks Elixir of Shadows and gains " + 
@@ -154,8 +177,8 @@ public class Battle {
                 break;
 
             case "Lifeblood Brew":
-                if (currentItem instanceof NodeItem.Potion) {
-                    NodeItem.Potion potion = (NodeItem.Potion) currentItem;
+                if (currentItem instanceof Components.NodeItem.Potion) {
+                    Components.NodeItem.Potion potion = (Components.NodeItem.Potion) currentItem;
                     player.healthPlayer += potion.healingAmount;
                     System.out.println(player.namaPlayer + " drinks Lifeblood Brew and recovers " + 
                                      potion.healingAmount + " health!");
@@ -164,22 +187,20 @@ public class Battle {
 
             // Skills
             case "Blazing Strike":
-                int blazingDamage = player.playerSkills.skill1.attackSkill1;
-                monster.healthMonster -= blazingDamage;
-                System.out.println(player.namaPlayer + " uses Blazing Strike for " + blazingDamage + " damage!");
+                monster.healthMonster -= player.playerSkills.skill1.attackSkill1;
+                System.out.println(player.namaPlayer + " uses Blazing Strike for " + player.playerSkills.skill1.attackSkill1 + " damage!");
                 break;
 
             case "Mystic Barrier":
-                int defenseIncrease = player.playerSkills.skill2.attackSkill2;
-                player.defensePlayer += defenseIncrease;
-                System.out.println(player.namaPlayer + " uses Mystic Barrier and gains " + defenseIncrease + " defense!");
+                player.defensePlayer += player.playerSkills.skill2.attackSkill2;
+                System.out.println(player.namaPlayer + " uses Mystic Barrier and gains " + player.playerSkills.skill2.attackSkill2 + " defense!");
                 break;
 
             case "Divine Restoration":
-                int healAmount = player.playerSkills.skill3.heal;
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Divine Restoration and heals for " + healAmount + " health!");
+                player.healthPlayer += player.playerSkills.skill3.heal;
+                System.out.println(player.namaPlayer + " uses Divine Restoration and heals for " + player.playerSkills.skill3.heal + " health!");
                 break;
+
 
             default:
                 System.out.println("Unknown action: " + action);

@@ -4,16 +4,16 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        // Item initialization (unchanged)
+        // backpack saya hapus soalnya inikan buat objek dari subclass jadi kurang efisien dan error juga wkwk
         Linkedlist_item item = new Linkedlist_item();
-        NodeItem Backpack = new NodeItem("ber", 0, false);
-        NodeItem.Weapon weapon_1 = Backpack.new Weapon("Shadowfang", 0, false, 0);
-        NodeItem.Armor armor_1 = Backpack.new Armor("Nightshade Plate", 0, false, 0);
-        NodeItem.Potion potion_1 = Backpack.new Potion("Elixir of Shadows", 0, false, 0, 0);
-        
-        NodeItem.Weapon weapon_2 = Backpack.new Weapon("Crimson Vortex", 0, false, 0);
-        NodeItem.Armor armor_2 = Backpack.new Armor("Ironveil", 0, false, 0);
-        NodeItem.Potion potion_2 = Backpack.new Potion("Lifeblood Brew", 0, false, 0, 0);
+        Components.NodeItem.Weapon weapon_1 = new Components.NodeItem.Weapon("Shadowfang", 10, false, 0);
+        Components.NodeItem.Armor armor_1 = new Components.NodeItem.Armor("Nightshade Plate", 0, false, 0);
+        Components.NodeItem.Potion potion_1 = new Components.NodeItem.Potion("Elixir of Shadows", 0, false, 0, 0);
+
+        Components.NodeItem.Weapon weapon_2 = new Components.NodeItem.Weapon("Crimson Vortex", 0, false, 0);
+        Components.NodeItem.Armor armor_2 = new Components.NodeItem.Armor("Ironveil", 0, false, 0);
+        Components.NodeItem.Potion potion_2 = new Components.NodeItem.Potion("Lifeblood Brew", 0, false, 0, 0);
+
 
         item.tambahData(weapon_1);
         item.tambahData(weapon_2);
@@ -25,12 +25,12 @@ public class Main {
         item.displayItems();
 
         // Create player and monster instances
-        NodePlayer player = new NodePlayer("Hero", 100, 15, 5);
-        NodeMonster monster1 = new NodeMonster("Goblin", 30, 5, 2, 5);
-        NodeMonster monster2 = new NodeMonster("Orc", 50, 10, 5, 10);
+        Components.NodePlayer player = new Components.NodePlayer("Hero", 100, 15, 5);
+        Components.NodeMonster monster1 = new Components.NodeMonster("Goblin", 30, 5, 2, 5);
+        Components.NodeMonster monster2 = new Components.NodeMonster("Orc", 50, 10, 5, 10);
 
         // Create skill and set it to player
-        Skill skill = new Skill(player);
+        Components.Skill skill = new Components.Skill(player);
       //  player.setSkills(skill);
 
         // Start battles

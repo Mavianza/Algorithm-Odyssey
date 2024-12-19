@@ -1,7 +1,7 @@
 public class Linkedlist_item {
-    NodeItem head = null;
-    NodeItem tail = null;
-    void tambahData(NodeItem n){
+    Components.NodeItem head = null;
+    Components.NodeItem tail = null;
+    void tambahData(Components.NodeItem n){
         if(this.head==null){
             this.head = n;
             this.tail = head;
@@ -12,7 +12,7 @@ public class Linkedlist_item {
     }
 
     void displayItems() {
-        NodeItem current = head;
+        Components.NodeItem current = head;
         int index = 1;
         while (current != null) {
             System.out.println(index + ". " + current.namaItem);
