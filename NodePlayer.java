@@ -4,6 +4,8 @@ public class NodePlayer {
     int attackPlayer;
     int defensePlayer;
     Inventory inventory; // Menyimpan senjata, skill, dan item
+    Skill playerSkills; // Tambahkan reference ke Skill
+    // NodePlayer player;
 
     public NodePlayer(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer) {
         this.namaPlayer = namaPlayer;
@@ -11,6 +13,8 @@ public class NodePlayer {
         this.attackPlayer = attackPlayer;
         this.defensePlayer = defensePlayer;
         this.inventory = new Inventory();
+        // this.playerSkills = new Skill(player);
+        
         
         // Menambahkan beberapa item ke inventory untuk contoh
         inventory.addItem("Shadowfang"); // Senjata

@@ -1,16 +1,16 @@
 import java.util.Scanner;
 
 public class Battle {
-    public static void fight(NodePlayer player, NodeMonster monster, Skill Skillmanager) {
+    public static void fight(NodePlayer player, NodeMonster monster, Skill Skillmanager, Linkedlist_item inventory) {
         Scanner scanner = new Scanner(System.in);
         AttackStack attackStack = new AttackStack();
 
         while (player.healthPlayer > 0 && monster.healthMonster > 0) {
-            // Tampilkan status kesehatan
+            // Display health status
             System.out.println(player.namaPlayer + " Health: " + player.healthPlayer);
             System.out.println(monster.namaMonster + " Health: " + monster.healthMonster);
             
-            // Pilihan aksi
+            // Action choices
             System.out.println("Choose your action:");
             System.out.println("1. Attack");
             System.out.println("2. Use Skill");
@@ -20,24 +20,19 @@ public class Battle {
 
             switch (choice) {
                 case 1:
-                    // Pilih senjata
                     System.out.println("Choose your weapon:");
                     System.out.println("1. Shadowfang");
                     System.out.println("2. Crimson Vortex");
-                    // Tambahkan lebih banyak senjata jika ada
                     int weaponChoice = scanner.nextInt();
-                    String attackAction = "Attack with Shadowfang";
-                    attackStack.addAttack(attackAction);
-                
+                    String weaponAction = weaponChoice == 1 ? "Shadowfang" : "Crimson Vortex";
+                    attackStack.addAttack(weaponAction);
                     break;
 
                 case 2:
-                    // Pilih skill
                     System.out.println("Choose your skill:");
-                    System.out.println("1. "+ Skillmanager.skill1.namaPlayer);
-                    System.out.println("2. "+ Skillmanager.skill2.namaPlayer);
-                    System.out.println("3. "+ Skillmanager.skill3.namaPlayer);
-                    // Tambahkan lebih banyak skill jika ada ambil dari class skill
+                    System.out.println("1. " + Skillmanager.skill1.namaPlayer);
+                    System.out.println("2. " + Skillmanager.skill2.namaPlayer);
+                    System.out.println("3. " + Skillmanager.skill3.namaPlayer);
                     int skillChoice = scanner.nextInt();
                     Skillmanager.tambahSkill(skillChoice);
                     String skillAction = Skillmanager.skill.namaPlayer;
@@ -45,37 +40,42 @@ public class Battle {
                     break;
 
                 case 3:
-                    // Pilih item
-                    System.out.println("Choose your item:");
-                    System.out.println("1. Nightshade Plate");
-                    System.out.println("2. Ironveil");
-                    System.out.println("7. Elixir of Shadows");
-                    System.out.println("8. Lifeblood Brew");
-
-
-                    // Tambahkan lebih banyak item jika ada
-                    int itemChoice = scanner.nextInt();
-                    String itemAction = "Use Health Potion"; // Ganti dengan logika item jika ada
-                    attackStack.addAttack(itemAction);
+                    System.out.println("Choose your item type:");
+                    System.out.println("1. Armor");
+                    System.out.println("2. Potion");
+                    int itemTypeChoice = scanner.nextInt();
+                    
+                    if (itemTypeChoice == 1) {
+                        System.out.println("Choose armor:");
+                        System.out.println("1. Nightshade Plate");
+                        System.out.println("2. Ironveil");
+                        int armorChoice = scanner.nextInt();
+                        String armorAction = armorChoice == 1 ? "Nightshade Plate" : "Ironveil";
+                        attackStack.addAttack(armorAction);
+                    } else if (itemTypeChoice == 2) {
+                        System.out.println("Choose potion:");
+                        System.out.println("1. Elixir of Shadows");
+                        System.out.println("2. Lifeblood Brew");
+                        int potionChoice = scanner.nextInt();
+                        String potionAction = potionChoice == 1 ? "Elixir of Shadows" : "Lifeblood Brew";
+                        attackStack.addAttack(potionAction);
+                    }
                     break;
 
                 case 4:
-                    // Eksekusi semua aksi dari stack
                     while (true) {
                         String action = attackStack.useAttack();
-                        if (action == null) {
-                            break; // Jika stack kosong, keluar dari loop
-                        }
-                        executeAction(action, player, monster);
+                        if (action == null) break;
+                        executeAction(action, player, monster, inventory);
                     }
                     break;
 
                 default:
                     System.out.println("Invalid choice. Try again.");
-                    continue; // Kembali ke awal loop jika pilihan tidak valid
+                    continue;
             }
 
-            // Monster menyerang
+            // Monster attack phase
             if (monster.healthMonster > 0) {
                 int damageToPlayer = monster.attackMonster - player.defensePlayer;
                 if (damageToPlayer > 0) {
@@ -87,6 +87,7 @@ public class Battle {
             }
         }
 
+        // Battle conclusion
         if (player.healthPlayer > 0) {
             System.out.println(player.namaPlayer + " has defeated " + monster.namaMonster);
         } else {
@@ -94,55 +95,94 @@ public class Battle {
         }
     }
 
-    private static void executeAction(String action, NodePlayer player, NodeMonster monster) {
+    private static void executeAction(String action, NodePlayer player, NodeMonster monster, Linkedlist_item inventory) {
+        // Find the item in inventory
+        NodeItem currentItem = inventory.head;
+        while (currentItem != null) {
+            if (currentItem.namaItem.equals(action)) {
+                break;
+            }
+            currentItem = currentItem.next;
+        }
+
         switch (action) {
+            // Weapons
             case "Shadowfang":
-                int damageToMonster = player.attackPlayer; // Ganti dengan logika senjata jika ada
-                monster.healthMonster -= damageToMonster;
-                System.out.println(player.namaPlayer + " attacks " + monster.namaMonster + " for " + damageToMonster + " damage.");
+                if (currentItem instanceof NodeItem.Weapon) {
+                    NodeItem.Weapon weapon = (NodeItem.Weapon) currentItem;
+                    int damage = player.attackPlayer + weapon.power;
+                    monster.healthMonster -= damage;
+                    System.out.println(player.namaPlayer + " attacks with Shadowfang for " + damage + " damage!");
+                }
                 break;
 
             case "Crimson Vortex":
-                int skillDamage = 10; // Ganti dengan logika skill jika ada
-                monster.healthMonster -= skillDamage;
-                System.out.println(player.namaPlayer + " uses Fireball on " + monster.namaMonster + " for " + skillDamage + " damage.");
+                if (currentItem instanceof NodeItem.Weapon) {
+                    NodeItem.Weapon weapon = (NodeItem.Weapon) currentItem;
+                    int damage = (int)((player.attackPlayer + weapon.power) * 1.2); // 20% bonus damage
+                    monster.healthMonster -= damage;
+                    System.out.println(player.namaPlayer + " unleashes Crimson Vortex for " + damage + " damage!");
+                }
                 break;
 
+            // Armor
+            case "Nightshade Plate":
+                if (currentItem instanceof NodeItem.Armor) {
+                    NodeItem.Armor armor = (NodeItem.Armor) currentItem;
+                    player.defensePlayer += armor.defense;
+                    System.out.println(player.namaPlayer + " equips Nightshade Plate and gains " + armor.defense + " defense!");
+                }
+                break;
+
+            case "Ironveil":
+                if (currentItem instanceof NodeItem.Armor) {
+                    NodeItem.Armor armor = (NodeItem.Armor) currentItem;
+                    player.defensePlayer += armor.defense;
+                    System.out.println(player.namaPlayer + " equips Ironveil and gains " + armor.defense + " defense!");
+                }
+                break;
+
+            // Potions
+            case "Elixir of Shadows":
+                if (currentItem instanceof NodeItem.Potion) {
+                    NodeItem.Potion potion = (NodeItem.Potion) currentItem;
+                    player.attackPlayer += potion.attackAmount;
+                    player.healthPlayer += potion.healingAmount;
+                    System.out.println(player.namaPlayer + " drinks Elixir of Shadows and gains " + 
+                                     potion.attackAmount + " attack and " + potion.healingAmount + " health!");
+                }
+                break;
+
+            case "Lifeblood Brew":
+                if (currentItem instanceof NodeItem.Potion) {
+                    NodeItem.Potion potion = (NodeItem.Potion) currentItem;
+                    player.healthPlayer += potion.healingAmount;
+                    System.out.println(player.namaPlayer + " drinks Lifeblood Brew and recovers " + 
+                                     potion.healingAmount + " health!");
+                }
+                break;
+
+            // Skills
             case "Blazing Strike":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
+                int blazingDamage = player.playerSkills.skill1.attackSkill1;
+                monster.healthMonster -= blazingDamage;
+                System.out.println(player.namaPlayer + " uses Blazing Strike for " + blazingDamage + " damage!");
                 break;
 
             case "Mystic Barrier":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
-                break;
-            case "Nightshade Plate":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
-                break;
-            case "Ironveil":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
-                break;
-            case "Elixir of Shadows":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
-                break;
-            case "Lifeblood Brew":
-                int healAmount = 20; // Ganti dengan logika item jika ada
-                player.healthPlayer += healAmount;
-                System.out.println(player.namaPlayer + " uses Health Potion and heals for " + healAmount + " health.");
+                int defenseIncrease = player.playerSkills.skill2.attackSkill2;
+                player.defensePlayer += defenseIncrease;
+                System.out.println(player.namaPlayer + " uses Mystic Barrier and gains " + defenseIncrease + " defense!");
                 break;
 
+            case "Divine Restoration":
+                int healAmount = player.playerSkills.skill3.heal;
+                player.healthPlayer += healAmount;
+                System.out.println(player.namaPlayer + " uses Divine Restoration and heals for " + healAmount + " health!");
+                break;
 
             default:
-                System.out.println("Unknown action.");
+                System.out.println("Unknown action: " + action);
                 break;
         }
     }
