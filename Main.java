@@ -13,22 +13,22 @@ public class Main {
         initializeInventory(inventory);
 
         // Inisialisasi player, monster, dan skill
-        Components.NodePlayer player = new Components.NodePlayer("Hero", 100, 15, 5);
+        Components.NodePlayer player = new Components.NodePlayer("Hero", 150, 20, 10);
 
-    Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 30, 5, 2, 5);
-    Components.NodeMonster orc = new Components.NodeMonster("Orc", 50, 10, 5, 10);
-    Components.NodeMonster troll = new Components.NodeMonster("Troll", 75, 15, 8, 15);
-    Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 100, 20, 10, 20);
-    Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 200, 50, 20, 50);
-    Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 300, 60, 25, 100);
+    Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 15, 5, 15);
+    Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 20, 8, 20);
+    Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 25, 12, 25);
+    Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 30, 15, 35);
+    Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 300, 45, 20, 50);
+    Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 400, 55, 25, 65);
 
             // Trap Monsters (monsters khusus untuk trap room yang langsung mengurangi health)
-            Components.NodeMonster spikesTrap = new Components.NodeMonster("Spikes Trap", 0, 20, 0, 0);
-            Components.NodeMonster poisonTrap = new Components.NodeMonster("Poison Trap", 0, 30, 0, 0);
-            Components.NodeMonster lavaTrap = new Components.NodeMonster("Lava Trap", 0, 40, 0, 0);
-            Components.NodeMonster crushingTrap = new Components.NodeMonster("Crushing Trap", 0, 50, 0, 0);
-            Components.NodeMonster cursedTrap = new Components.NodeMonster("Cursed Trap", 0, 60, 0, 0);
-            Components.NodeMonster abyssTrap = new Components.NodeMonster("Abyss Trap", 0, 70, 0, 0);
+            Components.NodeMonster spikesTrap = new Components.NodeMonster("Spikes Trap", 0, 25, 0, 0);
+            Components.NodeMonster poisonTrap = new Components.NodeMonster("Poison Trap", 0, 35, 0, 0);
+            Components.NodeMonster lavaTrap = new Components.NodeMonster("Lava Trap", 0, 45, 0, 0);
+            Components.NodeMonster crushingTrap = new Components.NodeMonster("Crushing Trap", 0, 55, 0, 0);
+            Components.NodeMonster cursedTrap = new Components.NodeMonster("Cursed Trap", 0, 65, 0, 0);
+            Components.NodeMonster abyssTrap = new Components.NodeMonster("Abyss Trap", 0, 75, 0, 0);
         
     Components.Skill skill = new Components.Skill(player);
         player.setSkill(skill);
@@ -95,13 +95,13 @@ public class Main {
     }
 
     private static void initializeItems(Linkedlist_item item) {
-        Components.NodeItem.Weapon weapon_1 = new Components.NodeItem.Weapon("Shadowfang", 10, false, 0);
-        Components.NodeItem.Armor armor_1 = new Components.NodeItem.Armor("Nightshade Plate", 0, false, 0);
-        Components.NodeItem.Potion potion_1 = new Components.NodeItem.Potion("Elixir of Shadows", 0, false, 0, 0);
+        Components.NodeItem.Weapon weapon_1 = new Components.NodeItem.Weapon("Shadowfang", 25, false, 15);
+        Components.NodeItem.Armor armor_1 = new Components.NodeItem.Armor("Nightshade Plate", 0, false, 15);
+        Components.NodeItem.Potion potion_1 = new Components.NodeItem.Potion("Elixir of Shadows", 0, false, 30, 15);
 
-        Components.NodeItem.Weapon weapon_2 = new Components.NodeItem.Weapon("Crimson Vortex", 0, false, 0);
-        Components.NodeItem.Armor armor_2 = new Components.NodeItem.Armor("Ironveil", 0, false, 0);
-        Components.NodeItem.Potion potion_2 = new Components.NodeItem.Potion("Lifeblood Brew", 0, false, 0, 0);
+        Components.NodeItem.Weapon weapon_2 = new Components.NodeItem.Weapon("Crimson Vortex", 35, false, 20);
+        Components.NodeItem.Armor armor_2 = new Components.NodeItem.Armor("Ironveil", 0, false, 25);
+        Components.NodeItem.Potion potion_2 = new Components.NodeItem.Potion("Lifeblood Brew", 0, false, 50, 0);
 
         item.tambahData(weapon_1);
         item.tambahData(weapon_2);

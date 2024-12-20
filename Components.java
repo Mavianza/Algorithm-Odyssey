@@ -174,10 +174,21 @@ public class Components {
         }
 
         // Subclass Potion
+        // public static class Potion extends NodeItem {
+        //     int healingAmount;
+        //     int attackAmount;
+
+        //     public Potion(String namaItem, int damage, boolean itemKhusus, int healingAmount, int attackAmount) {
+        //         super(namaItem, damage, itemKhusus);
+        //         this.healingAmount = healingAmount;
+        //         this.attackAmount = attackAmount;
+        //     }
+        // }
+
         public static class Potion extends NodeItem {
             int healingAmount;
             int attackAmount;
-
+        
             public Potion(String namaItem, int damage, boolean itemKhusus, int healingAmount, int attackAmount) {
                 super(namaItem, damage, itemKhusus);
                 this.healingAmount = healingAmount;
