@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Battle {
-    public static void fight(Components.NodePlayer player, Components.NodeMonster monster, Components.Skill Skillmanager, Linkedlist_item inventory) {
+    public static boolean fight(Components.NodePlayer player, Components.NodeMonster monster, Components.Skill Skillmanager, Linkedlist_item inventory) {
         Scanner scanner = new Scanner(System.in);
         Components.AttackStack attackStack = new Components.AttackStack();
 
@@ -113,9 +113,12 @@ public class Battle {
         // Battle conclusion
         if (player.healthPlayer > 0) {
             System.out.println(player.namaPlayer + " has defeated " + monster.namaMonster);
+            return true; // Player wins
         } else {
             System.out.println(player.namaPlayer + " has been defeated by " + monster.namaMonster);
+            return false; // Player loses
         }
+        // scanner.close();
     }
 
     private static void executeAction(String action, Components.NodePlayer player, Components.NodeMonster monster, Linkedlist_item inventory) {

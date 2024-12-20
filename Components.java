@@ -5,7 +5,7 @@ public class Components {
         int healthPlayer;
         int attackPlayer;
         int defensePlayer;
-        Inventory inventory; // Menyimpan senjata, skill, dan item
+        Linkedlist_item inventory; // Menyimpan senjata, skill, dan item
         Skill playerSkills; // Tambahkan reference ke Skill
         // NodePlayer player;
 
@@ -14,15 +14,12 @@ public class Components {
             this.healthPlayer = healthPlayer;
             this.attackPlayer = attackPlayer;
             this.defensePlayer = defensePlayer;
-            this.inventory = new Inventory();
-            // this.playerSkills = new Skill(player);
-            
-            // Menambahkan beberapa item ke inventory untuk contoh
-            inventory.addItem("Shadowfang"); // Senjata
-            inventory.addItem("Fireball"); // Skill
-            inventory.addItem("Health Potion"); // Item
+            this.inventory = new Linkedlist_item();
         }
-
+        public void setSkill(Skill skill) {
+            this.playerSkills = skill;
+        }
+        
         // Subclass Skill
         public static class SkillSatu extends NodePlayer {
             int attackSkill1;
