@@ -131,7 +131,7 @@ public class Components {
         int defenseMonster;
         NodeMonster next = null;
 
-        public NodeMonster(String namaMonster, int healthMonster, int damageMonster, int defenseMonster,int attackMonster) {
+        public NodeMonster(String namaMonster, int healthMonster, int defenseMonster,int attackMonster) {
             this.namaMonster = namaMonster;
             this.healthMonster = healthMonster;
             this.attackMonster = attackMonster;

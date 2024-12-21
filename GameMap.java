@@ -1,4 +1,5 @@
 import java.util.Scanner;
+
 class GameMap {
     private NodeRoom root;
     private final Scanner scanner;
@@ -24,7 +25,6 @@ class GameMap {
         this.scanner = scanner;
     }
 
-    // tambah root
     public void addRoot(String roomName, Components.NodeMonster monster) {
         root = new NodeRoom(roomName, monster);
     }
@@ -37,7 +37,6 @@ class GameMap {
             if (isLeft) {
                 parent.left = newRoom;
             } else {
-                // Cek apakah middle sudah terisi
                 if (parent.middle == null) {
                     parent.middle = newRoom;
                 } else {
@@ -104,6 +103,13 @@ class GameMap {
             exploreRoom(current.left, player);
         } else if (choice == 2 && current.middle != null) {
             exploreRoom(current.middle, player);
+
+            // Setelah selesai di middle room, otomatis masuk ke right room jika ada
+            if (current.right != null) {
+                System.out.println("Automatically moving to " + current.right.roomName + "...");
+                player.healthPlayer -= 30;
+                exploreRoom(current.right, player);
+            }
         } else if (choice == 3 && current.right != null) {
             exploreRoom(current.right, player);
         } else {

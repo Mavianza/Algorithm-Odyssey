@@ -3,37 +3,22 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Inisialisasi item untuk inventory
         Linkedlist_item item = new Linkedlist_item();
         initializeItems(item);
 
-        // Inisialisasi inventory pemain
         Components.Inventory inventory = new Components.Inventory();
         initializeInventory(inventory);
 
-        // Inisialisasi player, monster, dan skill
         Components.NodePlayer player = new Components.NodePlayer("Hero", 150, 20, 10);
 
-    Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 15, 5, 15);
-    Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 20, 8, 20);
-    Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 25, 12, 25);
-    Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 30, 15, 35);
-    Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 300, 45, 20, 50);
-    Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 400, 55, 25, 65);
-
-            // Trap Monsters (monsters khusus untuk trap room yang langsung mengurangi health)
-            Components.NodeMonster spikesTrap = new Components.NodeMonster("Spikes Trap", 0, 25, 0, 0);
-            Components.NodeMonster poisonTrap = new Components.NodeMonster("Poison Trap", 0, 35, 0, 0);
-            Components.NodeMonster lavaTrap = new Components.NodeMonster("Lava Trap", 0, 45, 0, 0);
-            Components.NodeMonster crushingTrap = new Components.NodeMonster("Crushing Trap", 0, 55, 0, 0);
-            Components.NodeMonster cursedTrap = new Components.NodeMonster("Cursed Trap", 0, 65, 0, 0);
-            Components.NodeMonster abyssTrap = new Components.NodeMonster("Abyss Trap", 0, 75, 0, 0);
-        
+    Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 5, 15);
+    Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 8, 20);
+    Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 12, 25);
+    Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 15, 35);
+    Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 300, 20, 50);
+    Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 400, 25, 65);
     Components.Skill skill = new Components.Skill(player);
         player.setSkill(skill);
-
-
         // Create map with tree structure:
         //                             Entrance (Goblin)
         //                    /           |              \
@@ -53,42 +38,38 @@ public class Main {
         //                                                                  |
         //                                                            /     |        \
         //                                              Empty Room 6  Abyss Trap  Final Chamber
-    
-        // Buat map dan tambahkan ruangan
         GameMap map = new GameMap(scanner);
 
         // Level 1
         map.addRoot("Entrance", goblin);
         map.addRoom("Entrance", "Empty Room 1", null, true);
-        map.addRoom("Entrance", "Spike Trap Room", spikesTrap, false);
+        map.addRoom("Entrance", "Spike Trap Room", null, false);
         map.addRoom("Entrance", "Orc Den", orc, false);
         
         // Level 2
         map.addRoom("Orc Den", "Empty Room 2", null, true);
-        map.addRoom("Orc Den", "Poison Trap Room", poisonTrap, false);
+        map.addRoom("Orc Den", "Poison Trap Room", null, false);
         map.addRoom("Orc Den", "Troll Cave", troll, false);
         
         // Level 3
         map.addRoom("Troll Cave", "Empty Room 3", null, true);
-        map.addRoom("Troll Cave", "Lava Trap Room", lavaTrap, false);
+        map.addRoom("Troll Cave", "Lava Trap Room", null, false);
         map.addRoom("Troll Cave", "Alma's Lair", almaMonster, false);
         
         // Level 4
         map.addRoom("Alma's Lair", "Empty Room 4", null, true);
-        map.addRoom("Alma's Lair", "Crushing Trap Room", crushingTrap, false);
+        map.addRoom("Alma's Lair", "Crushing Trap Room", null, false);
         map.addRoom("Alma's Lair", "Dragon's Lair", dragon, false);
         
         // Level 5
         map.addRoom("Dragon's Lair", "Empty Room 5", null, true);
-        map.addRoom("Dragon's Lair", "Cursed Trap Room", cursedTrap, false);
+        map.addRoom("Dragon's Lair", "Cursed Trap Room", null, false);
         map.addRoom("Dragon's Lair", "Demon's Throne", demonLord, false);
         
         // Level 6 (Final Level)
         map.addRoom("Demon's Throne", "Empty Room 6", null, true);
-        map.addRoom("Demon's Throne", "Abyss Trap Room", abyssTrap, false);
+        map.addRoom("Demon's Throne", "Abyss Trap Room", null, false);
         map.addRoom("Demon's Throne", "Final Chamber", null, false);
-
-    // Start exploration
     map.explore(player);
 
         scanner.close();
