@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Components {
     //skill
     public static class NodePlayer {
@@ -138,6 +140,20 @@ public class Components {
             this.defenseMonster = defenseMonster;
             this.next = null;
         }
+
+        public String getName(){
+            return namaMonster;
+        }
+        public void setName(String namaMonster){
+            this.namaMonster = namaMonster;
+        }
+        public int getHealth(){
+            return healthMonster;
+        }
+        public void setHealth(int healthMonster){
+            this.healthMonster = healthMonster;
+        }
+
     }
     //item
     public static class NodeItem {
@@ -172,18 +188,6 @@ public class Components {
                 this.defense = defense;
             }
         }
-
-        // Subclass Potion
-        // public static class Potion extends NodeItem {
-        //     int healingAmount;
-        //     int attackAmount;
-
-        //     public Potion(String namaItem, int damage, boolean itemKhusus, int healingAmount, int attackAmount) {
-        //         super(namaItem, damage, itemKhusus);
-        //         this.healingAmount = healingAmount;
-        //         this.attackAmount = attackAmount;
-        //     }
-        // }
 
         public static class Potion extends NodeItem {
             int healingAmount;
@@ -228,6 +232,140 @@ public class Components {
             String attack = top.attack;
             top = top.next;
             return attack;
+        }
+    }
+    //method sort sama search
+    public static void showSortSearchMenu(Scanner scanner, Linkedlist_monster monster) {
+        while (true) {
+            System.out.println("╔═════════════════════════════╗");
+            System.out.println("║    Sort & Search Menu       ║");
+            System.out.println("╚═════════════════════════════╝");
+            System.out.println("1. Sort Monster by Name");
+            System.out.println("2. Sort Monster by Health");
+            System.out.println("3. Search Monster by Name");
+            System.out.println("4. Back to Main Menu");
+            System.out.print(">> ");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            Battle.clearScreen();
+            
+            switch (choice) {
+                case 1:
+                    sortMonsterByName(monster);
+                    break;
+                case 2:
+                    sortMonsterByHealth(monster);
+                    break;
+                case 3:
+                    System.out.print("Enter Monster Name to search: ");
+                    String searchName = scanner.nextLine();
+                    searchMonsterByName(monster, searchName);
+                    break;
+                case 4:
+                    return;
+                default:
+                    System.out.println("Invalid option. Please try again.");
+            }
+        }
+    }
+
+    private static void sortMonsterByName(Linkedlist_monster monster) {
+        Components.NodeMonster current = monster.head;
+        Components.NodeMonster index = null;
+        
+        if (monster.head == null) {
+            System.out.println("There are no Monster!");
+            return;
+        }
+        
+        while (current != null) {
+            index = current.next;
+            while (index != null) {
+                if (current.getName().compareTo(index.getName()) > 0) {
+                    // Swap nama
+                    String tempName = current.getName();
+                    current.setName(index.getName());
+                    index.setName(tempName);
+                    
+                    // Swap health
+                    int tempHealth = current.getHealth();
+                    current.setHealth(tempHealth);
+                    index.setHealth(tempHealth);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        
+        // Print sorted items
+        System.out.println("\nMonsters sorted by name:");
+        printMonsters(monster);
+    }
+
+    private static void sortMonsterByHealth(Linkedlist_monster monster) {
+        Components.NodeMonster current = monster.head;
+        Components.NodeMonster index = null;
+        
+        if (monster.head == null) {
+            System.out.println("There are no Monster");
+            return;
+        }
+        
+        while (current != null) {
+            index = current.next;
+            while (index != null) {
+                if (current.getHealth() > index.getHealth()) {
+                    // Swap names
+                    String tempName = current.getName();
+                    current.setName(index.getName());
+                    index.setName(tempName);
+                    
+                    // Swap health
+                    int tempHealth = current.getHealth();
+                    current.setHealth(tempHealth);
+                    index.setHealth(tempHealth);
+                }
+                index = index.next;
+            }
+            current = current.next;
+        }
+        
+        // Print sorted items
+        System.out.println("\nMonsters sorted by Health:");
+        printMonsters(monster);
+    }
+
+    private static void searchMonsterByName(Linkedlist_monster monster, String searchName) {
+        Components.NodeMonster current = monster.head;
+        boolean found = false;
+        
+        System.out.println("\nSearch results for '" + searchName + "':");
+        System.out.println("----------------------------------------");
+        
+        while (current != null) {
+            if (current.getName().toLowerCase().contains(searchName.toLowerCase())) {
+                System.out.println("Name: " + current.getName());
+                System.out.println("Health: " + current.getHealth());
+                System.out.println("----------------------------------------");
+                found = true;
+            }
+            current = current.next;
+        }
+        
+        if (!found) {
+            System.out.println("No monster found matching '" + searchName + "'");
+        }
+    }
+
+    private static void printMonsters(Linkedlist_monster monster) {
+        Components.NodeMonster current = monster.head;
+        System.out.println("----------------------------------------");
+        while (current != null) {
+            System.out.println("Name: " + current.getName());
+            System.out.println("Health: " + current.getHealth());
+            System.out.println("----------------------------------------");
+            current = current.next;
         }
     }
 }

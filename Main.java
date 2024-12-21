@@ -8,38 +8,27 @@ public class Main {
 
         Components.Inventory inventory = new Components.Inventory();
         initializeInventory(inventory);
-
+        
         Components.NodePlayer player = new Components.NodePlayer("Hero", 150, 20, 10);
 
-    Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 5, 15);
-    Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 8, 20);
-    Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 12, 25);
-    Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 15, 35);
-    Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 300, 20, 50);
-    Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 400, 25, 65);
-    Components.Skill skill = new Components.Skill(player);
-        player.setSkill(skill);
-        // Create map with tree structure:
-        //                             Entrance (Goblin)
-        //                    /           |              \
-        //          Empty Room 1    Spike Trap Room    Orc Den (Orc)
-        //                                    |
-        //                              /     |        \
-        //                    Empty Room 2  Poison Trap  Troll Cave (Troll)
-        //                                              |
-        //                                        /     |        \
-        //                              Empty Room 3  Lava Trap  Alma's Lair (Alma)
-        //                                                      |
-        //                                                /     |        \
-        //                                      Empty Room 4  Crushing Trap  Dragon's Lair (Dragon)
-        //                                                              |
-        //                                                        /     |        \
-        //                                          Empty Room 5  Cursed Trap  Demon's Throne (DemonLord)
-        //                                                                  |
-        //                                                            /     |        \
-        //                                              Empty Room 6  Abyss Trap  Final Chamber
-        GameMap map = new GameMap(scanner);
+        Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 5, 999);
+        Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 8, 20);
+        Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 12, 25);
+        Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 15, 35);
+        Components.NodeMonster dragon = new Components.NodeMonster("Dragon", 300, 20, 50);
+        Components.NodeMonster demonLord = new Components.NodeMonster("Demon Lord", 400, 25, 65);
+        Components.Skill skill = new Components.Skill(player);
+        Linkedlist_monster monsterList = new Linkedlist_monster();
+        monsterList.tambahData(goblin);
+        monsterList.tambahData(orc);
+        monsterList.tambahData(troll);
+        monsterList.tambahData(almaMonster);
+        monsterList.tambahData(dragon);
+        monsterList.tambahData(demonLord);
 
+        player.setSkill(skill);
+        
+        GameMap map = new GameMap(scanner);
         // Level 1
         map.addRoot("Entrance", goblin);
         map.addRoom("Entrance", "Empty Room 1", null, true);
@@ -67,11 +56,44 @@ public class Main {
         map.addRoom("Dragon's Lair", "Demon's Throne", demonLord, false);
         
         // Level 6 (Final Level)
-        map.addRoom("Demon's Throne", "Empty Room 6", null, true);
+        map.addRoom("Dragon's Lair", "Empty Room 6", null, true);
         map.addRoom("Demon's Throne", "Abyss Trap Room", null, false);
         map.addRoom("Demon's Throne", "Final Chamber", null, false);
-    map.explore(player);
+        System.out.println("╔══════════════════════════╗");
+        System.out.println("║    Welcome to Odyssey    ║");
+        System.out.println("╚══════════════════════════╝");
+        System.out.println("1. Mulai Game");
+        System.out.println("2. Sort and Search Monsters");
+        System.out.println("3. Keluar");
+        System.out.print(">> ");
+        int pilihan = scanner.nextInt();
+        Battle.clearScreen();
 
+        switch (pilihan) {
+            case 1:
+                map.printMap();
+                System.out.println("enter first room ");
+                System.out.print(">> " );
+                scanner.nextLine();
+                if(scanner.nextLine().trim().isEmpty()){
+                    Battle.clearScreen();
+                    map.explore(player);
+                }else{
+                    break;
+                }
+                break;
+            case 2:
+                Components.showSortSearchMenu(scanner, monsterList);
+                Battle.clearScreen();
+                main(args);
+                break;
+            case 3:
+                System.out.println("Terima kasih telah bermain!");
+                break;
+            default:
+                System.out.println("Opsi tidak valid. Silakan coba lagi.");
+                main(args);
+        }
         scanner.close();
     }
 

@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 class Battle {
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
     public static boolean fight(Components.NodePlayer player, Components.NodeMonster monster, Components.Skill Skillmanager, Linkedlist_item inventory) {
         Scanner scanner = new Scanner(System.in);
         Components.AttackStack attackStack = new Components.AttackStack();
@@ -19,6 +23,7 @@ class Battle {
             System.out.println("4. Execute Actions from Stack");
             
             int choice = scanner.nextInt();
+            clearScreen();
             
             switch (choice) {
                 case 1:
@@ -26,11 +31,10 @@ class Battle {
                     System.out.println("1. Shadowfang (Base damage: 20)");
                     System.out.println("2. Crimson Vortex (Base damage: 25)");
                     int weaponChoice = scanner.nextInt();
+                    clearScreen();
                     String weaponAction = weaponChoice == 1 ? "Shadowfang" : "Crimson Vortex";
                     attackStack.addAttack(weaponAction);
                     System.out.println(weaponAction + " added to action stack!");
-                    
-                    // Monster counter-attack after adding weapon
                     monsterAttack(monster, player);
                     break;
 
@@ -40,6 +44,7 @@ class Battle {
                     System.out.println("2. " + Skillmanager.skill2.namaPlayer + " (Defense: " + Skillmanager.skill2.attackSkill2 + ")");
                     System.out.println("3. " + Skillmanager.skill3.namaPlayer + " (Heal: " + Skillmanager.skill3.heal + ")");
                     int skillChoice = scanner.nextInt();
+                    clearScreen();
                     String skillAction = "";
                     switch (skillChoice) {
                         case 1: skillAction = "Blazing Strike"; break;
@@ -49,8 +54,6 @@ class Battle {
                     }
                     attackStack.addAttack(skillAction);
                     System.out.println(skillAction + " added to action stack!");
-                    
-                    // Monster counter-attack after adding skill
                     monsterAttack(monster, player);
                     break;
 
@@ -59,12 +62,14 @@ class Battle {
                     System.out.println("1. Armor");
                     System.out.println("2. Potion");
                     int itemType = scanner.nextInt();
+                    clearScreen();
                     
                     if (itemType == 1) {
                         System.out.println("Choose armor:");
                         System.out.println("1. Nightshade Plate (+15 defense)");
                         System.out.println("2. Ironveil (+20 defense)");
                         int armorChoice = scanner.nextInt();
+                        clearScreen();
                         String armorAction = armorChoice == 1 ? "Nightshade Plate" : "Ironveil";
                         attackStack.addAttack(armorAction);
                         System.out.println(armorAction + " added to action stack!");
@@ -73,12 +78,11 @@ class Battle {
                         System.out.println("1. Elixir of Shadows (+20 health, +10 attack)");
                         System.out.println("2. Lifeblood Brew (+40 health)");
                         int potionChoice = scanner.nextInt();
+                        clearScreen();
                         String potionAction = potionChoice == 1 ? "Elixir of Shadows" : "Lifeblood Brew";
                         attackStack.addAttack(potionAction);
                         System.out.println(potionAction + " added to action stack!");
                     }
-                    
-                    // Monster counter-attack after using item
                     monsterAttack(monster, player);
                     break;
 
@@ -89,8 +93,6 @@ class Battle {
                         String action = attackStack.useAttack();
                         if (action == null) break;
                         didAttack = executeAction(action, player, monster, inventory);
-                        
-                        // Monster counter-attack after each action that deals damage
                         if (didAttack) {
                             monsterAttack(monster, player);
                         }
@@ -107,10 +109,18 @@ class Battle {
         player.defensePlayer = initialDefense;
         
         if (player.healthPlayer > 0) {
+            clearScreen();
             System.out.println("\nVictory! " + player.namaPlayer + " has defeated " + monster.namaMonster);
+            scanner.nextLine();
+            scanner.nextLine();
+            clearScreen();
             return true;
         } else {
+            clearScreen();
             System.out.println("\nDefeat! " + player.namaPlayer + " has been defeated by " + monster.namaMonster);
+            scanner.nextLine();
+            scanner.nextLine();
+            clearScreen();
             return false;
         }
     }
