@@ -233,6 +233,53 @@ public class Components {
             top = top.next;
             return attack;
         }
+    
+        public boolean isEmpty() {
+            return top == null;
+        }
+    }
+    static class QueueNode {
+        String participant;
+        QueueNode next;
+
+        QueueNode(String participant) {
+            this.participant = participant;
+            this.next = null;
+        }
+    }
+    public static class BattleQueue{
+        private QueueNode front;
+        private QueueNode rear;
+
+        public BattleQueue() {
+            this.front = null;
+            this.rear = null;
+        }
+        public void enqueue(String participant) {
+            QueueNode newNode = new QueueNode(participant);
+            
+            if (rear == null) {
+                front = rear = newNode;
+                return;
+            }
+            rear.next = newNode;
+            rear = newNode;
+        }
+        public String dequeue() {
+            if (front == null) return null;
+            
+            String participant = front.participant;
+            front = front.next;
+            
+            if (front == null) {
+                rear = null;
+            }
+            return participant;
+        }
+
+        public boolean isEmpty() {
+            return front == null;
+        }
     }
     //method sort sama search
     public static void showSortSearchMenu(Scanner scanner, Linkedlist_monster monster) {
