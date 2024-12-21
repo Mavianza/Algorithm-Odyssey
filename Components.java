@@ -1,15 +1,13 @@
 import java.util.Scanner;
 
 public class Components {
-    //skill
     public static class NodePlayer {
         String namaPlayer;
         int healthPlayer;
         int attackPlayer;
         int defensePlayer;
-        Linkedlist_item inventory; // Menyimpan senjata, skill, dan item
-        Skill playerSkills; // Tambahkan reference ke Skill
-        // NodePlayer player;
+        Linkedlist_item inventory;
+        Skill playerSkills; 
 
         public NodePlayer(String namaPlayer, int healthPlayer, int attackPlayer, int defensePlayer) {
             this.namaPlayer = namaPlayer;
@@ -21,8 +19,7 @@ public class Components {
         public void setSkill(Skill skill) {
             this.playerSkills = skill;
         }
-        
-        // Subclass Skill
+
         public static class SkillSatu extends NodePlayer {
             int attackSkill1;
 
@@ -57,7 +54,6 @@ public class Components {
         NodePlayer.SkillTiga skill3;
 
         public Skill(NodePlayer player) {
-            // Menghubungkan skill dengan NodePlayer
             this.skill1 = new NodePlayer.SkillSatu("Blazing Strike", player.healthPlayer, player.attackPlayer, player.defensePlayer, 69);
             this.skill2 = new NodePlayer.SkillDua("Mystic Barrier", player.healthPlayer, player.attackPlayer, player.defensePlayer, 100);
             this.skill3 = new NodePlayer.SkillTiga("Divine Restoration", player.healthPlayer, player.attackPlayer, player.defensePlayer, 911);
@@ -65,13 +61,13 @@ public class Components {
 
         public void tambahSkill(int skillChoice) {
             switch (skillChoice) {
-                case 1: // Tambah Skill 1
+                case 1: 
                     System.out.println(skill1.namaPlayer + " menggunakan " + skill1.namaPlayer + "! Damage: " + skill1.attackSkill1);
                     break;
-                case 2: // Tambah Skill 2
+                case 2: 
                     System.out.println(skill2.namaPlayer + " menggunakan " + skill2.namaPlayer + "! Defense meningkat sebesar " + skill2.attackSkill2);
                     break;
-                case 3: // Tambah Skill 3
+                case 3:
                     System.out.println(skill3.namaPlayer + " menggunakan " + skill3.namaPlayer + "! Health bertambah sebesar " + skill3.heal);
                     break;
                 default:
@@ -79,7 +75,7 @@ public class Components {
             }
         }
     }
-    //Inventory
+
     public static class Inventory {
         NodeInventory head;
 
@@ -120,12 +116,10 @@ public class Components {
                 current = current.next;
                 count++;
             }
-            return null; // Jika tidak ada item pada index tersebut
+            return null; 
         }
     }
 
-
-    //Monster
     public static class NodeMonster {
         String namaMonster;
         int healthMonster;
@@ -155,36 +149,32 @@ public class Components {
         }
 
     }
-    //item
+    
     public static class NodeItem {
         String namaItem;
         int damage;
-        boolean itemKhusus;
         NodeItem next;
 
-        public NodeItem(String namaItem, int damage, boolean itemKhusus) {
+        public NodeItem(String namaItem, int damage) {
             this.namaItem = namaItem;
             this.damage = damage;
-            this.itemKhusus = itemKhusus;
             this.next = null;
         }
 
-        // Subclass Weapon
         public static class Weapon extends NodeItem {
             int power;
 
-            public Weapon(String namaItem, int damage, boolean itemKhusus, int power) {
-                super(namaItem, damage, itemKhusus);
+            public Weapon(String namaItem, int damage, int power) {
+                super(namaItem, damage);
                 this.power = power;
             }
         }
 
-        // Subclass Armor
         public static class Armor extends NodeItem {
             int defense;
 
-            public Armor(String namaItem, int damage, boolean itemKhusus, int defense) {
-                super(namaItem, damage, itemKhusus);
+            public Armor(String namaItem, int damage, int defense) {
+                super(namaItem, damage);
                 this.defense = defense;
             }
         }
@@ -193,14 +183,14 @@ public class Components {
             int healingAmount;
             int attackAmount;
         
-            public Potion(String namaItem, int damage, boolean itemKhusus, int healingAmount, int attackAmount) {
-                super(namaItem, damage, itemKhusus);
+            public Potion(String namaItem, int damage, int healingAmount, int attackAmount) {
+                super(namaItem, damage);
                 this.healingAmount = healingAmount;
                 this.attackAmount = attackAmount;
             }
         }
     }
-    //attack stack
+    
     public static class AttackStack {
         private class StackNode {
             String attack;
@@ -227,7 +217,7 @@ public class Components {
     
         public String useAttack() {
             if (top == null) {
-                return null; // Jika stack kosong
+                return null; 
             }
             String attack = top.attack;
             top = top.next;
@@ -281,7 +271,7 @@ public class Components {
             return front == null;
         }
     }
-    //method sort sama search
+   
     public static void showSortSearchMenu(Scanner scanner, Linkedlist_monster monster) {
         while (true) {
             System.out.println("╔═════════════════════════════╗");
@@ -345,7 +335,6 @@ public class Components {
             current = current.next;
         }
         
-        // Print sorted items
         System.out.println("\nMonsters sorted by name:");
         printMonsters(monster);
     }
@@ -363,12 +352,11 @@ public class Components {
             index = current.next;
             while (index != null) {
                 if (current.getHealth() > index.getHealth()) {
-                    // Swap names
+                   
                     String tempName = current.getName();
                     current.setName(index.getName());
                     index.setName(tempName);
                     
-                    // Swap health
                     int tempHealth = current.getHealth();
                     current.setHealth(tempHealth);
                     index.setHealth(tempHealth);
@@ -378,7 +366,6 @@ public class Components {
             current = current.next;
         }
         
-        // Print sorted items
         System.out.println("\nMonsters sorted by Health:");
         printMonsters(monster);
     }

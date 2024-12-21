@@ -11,7 +11,7 @@ public class Main {
         
         Components.NodePlayer player = new Components.NodePlayer("Hero", 150, 20, 10);
 
-        Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 5, 999);
+        Components.NodeMonster goblin = new Components.NodeMonster("Goblin", 80, 5, 15);
         Components.NodeMonster orc = new Components.NodeMonster("Orc", 120, 8, 20);
         Components.NodeMonster troll = new Components.NodeMonster("Troll", 180, 12, 25);
         Components.NodeMonster almaMonster = new Components.NodeMonster("Alma", 220, 15, 35);
@@ -98,13 +98,13 @@ public class Main {
     }
 
     private static void initializeItems(Linkedlist_item item) {
-        Components.NodeItem.Weapon weapon_1 = new Components.NodeItem.Weapon("Shadowfang", 25, false, 15);
-        Components.NodeItem.Armor armor_1 = new Components.NodeItem.Armor("Nightshade Plate", 0, false, 15);
-        Components.NodeItem.Potion potion_1 = new Components.NodeItem.Potion("Elixir of Shadows", 0, false, 30, 15);
+        Components.NodeItem.Weapon weapon_1 = new Components.NodeItem.Weapon("Shadowfang", 25, 15);
+        Components.NodeItem.Armor armor_1 = new Components.NodeItem.Armor("Nightshade Plate", 0, 15);
+        Components.NodeItem.Potion potion_1 = new Components.NodeItem.Potion("Elixir of Shadows", 0, 30, 15);
 
-        Components.NodeItem.Weapon weapon_2 = new Components.NodeItem.Weapon("Crimson Vortex", 35, false, 20);
-        Components.NodeItem.Armor armor_2 = new Components.NodeItem.Armor("Ironveil", 0, false, 25);
-        Components.NodeItem.Potion potion_2 = new Components.NodeItem.Potion("Lifeblood Brew", 0, false, 50, 0);
+        Components.NodeItem.Weapon weapon_2 = new Components.NodeItem.Weapon("Crimson Vortex", 35, 20);
+        Components.NodeItem.Armor armor_2 = new Components.NodeItem.Armor("Ironveil", 0, 25);
+        Components.NodeItem.Potion potion_2 = new Components.NodeItem.Potion("Lifeblood Brew", 0, 50, 0);
 
         item.tambahData(weapon_1);
         item.tambahData(weapon_2);

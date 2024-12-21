@@ -1,8 +1,8 @@
 public class NodeRoom {
     String roomName;
     Components.NodeMonster monster;
-    NodeRoom left; // Ruangan kiri
-    NodeRoom right; // Ruangan kanan
+    NodeRoom left; 
+    NodeRoom right; 
 
     public NodeRoom(String roomName, Components.NodeMonster monster) {
         this.roomName = roomName;

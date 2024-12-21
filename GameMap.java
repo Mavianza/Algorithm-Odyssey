@@ -4,7 +4,6 @@ public class GameMap {
     private NodeRoom root;
     private final Scanner scanner;
 
-    // Modifikasi class NodeRoom untuk menambah middle child
     private class NodeRoom {
         String roomName;
         Components.NodeMonster monster;
@@ -29,7 +28,6 @@ public class GameMap {
         root = new NodeRoom(roomName, monster);
     }
 
-    // Modifikasi addRoom untuk menangani 3 arah (left, middle, right)
     public void addRoom(String parentRoom, String roomName, Components.NodeMonster monster, boolean isLeft) {
         NodeRoom parent = findRoom(root, parentRoom);
         if (parent != null) {
@@ -60,7 +58,6 @@ public class GameMap {
         return foundRoom;
     }
 
-    // Explore map
     public void explore(Components.NodePlayer player) {
         exploreRoom(root, player);
     }
@@ -68,7 +65,6 @@ public class GameMap {
     private void exploreRoom(NodeRoom current, Components.NodePlayer player) {
         if (current == null) return;
 
-        // Encounter monster if present
         if (current.monster != null) {
             System.out.println("You encountered a " + current.monster.namaMonster + "!");
             boolean isVictory = Battle.fight(player, current.monster, player.playerSkills, player.inventory);
@@ -79,7 +75,6 @@ public class GameMap {
             current.monster = null;
         }
 
-        // Check if the current room is a dead end
         if (current.left == null && current.middle == null && current.right == null) {
             System.out.println("You've reached the end of this path.");
             return;
@@ -99,13 +94,11 @@ public class GameMap {
         int choice = getValidInput();
         Battle.clearScreen();
 
-        // rekursif eksplorasi dengan 3 pilihan
         if (choice == 1 && current.left != null) {
             exploreRoom(current.left, player);
         } else if (choice == 2 && current.middle != null) {
             exploreRoom(current.middle, player);
 
-            // Setelah selesai di middle room, otomatis masuk ke right room jika ada
             if (current.right != null) {
                 System.out.println("Automatically moving to " + current.right.roomName + "...");
                 player.healthPlayer -= 30;
@@ -128,7 +121,7 @@ public class GameMap {
 
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
-                if (choice >= 1 && choice <= 3) {  // Ubah validasi untuk 3 pilihan
+                if (choice >= 1 && choice <= 3) { 
                     return choice;
                 } else {
                     System.out.println("Invalid choice. Please select 1, 2, or 3.");

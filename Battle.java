@@ -39,7 +39,6 @@ class Battle {
                         String weaponAction = weaponChoice == 1 ? "Shadowfang" : "Crimson Vortex";
                         attackStack.addAttack(weaponAction);
                         System.out.println(weaponAction + " added to action stack!");
-                        // monsterAttack(monster, player);
                         break;
     
                     case 2:
@@ -58,7 +57,6 @@ class Battle {
                         }
                         attackStack.addAttack(skillAction);
                         System.out.println(skillAction + " added to action stack!");
-                        // monsterAttack(monster, player);
                         break;
     
                     case 3:
@@ -87,7 +85,6 @@ class Battle {
                             attackStack.addAttack(potionAction);
                             System.out.println(potionAction + " added to action stack!");
                         }
-                        // monsterAttack(monster, player);
                         break;
     
                     case 4:
@@ -137,7 +134,6 @@ class Battle {
         }
     }
 
-    // New method to handle monster attacks
     private static void monsterAttack(Components.NodeMonster monster, Components.NodePlayer player) {
         if (monster.healthMonster > 0) {
             int rawDamage = monster.attackMonster;
@@ -155,7 +151,6 @@ class Battle {
         boolean isAttackAction = false;
         
         switch (action) {
-            // Weapons
             case "Shadowfang":
                 int shadowfangDamage = Math.max(0, 20 + player.attackPlayer - monster.defenseMonster);
                 monster.healthMonster -= shadowfangDamage;
@@ -176,7 +171,6 @@ class Battle {
                 isAttackAction = true;
                 break;
 
-            // Armor
             case "Nightshade Plate":
                 int nightshadeDefense = 15;
                 player.defensePlayer += nightshadeDefense;
@@ -193,7 +187,6 @@ class Battle {
                 System.out.println("Current defense: " + player.defensePlayer);
                 break;
 
-            // Potions
             case "Elixir of Shadows":
                 player.healthPlayer += 20;
                 player.attackPlayer += 10;
@@ -211,7 +204,6 @@ class Battle {
                 System.out.println("Current health: " + player.healthPlayer);
                 break;
 
-            // Skills
             case "Blazing Strike":
                 int blazingDamage = Math.max(0, player.playerSkills.skill1.attackSkill1 - monster.defenseMonster);
                 monster.healthMonster -= blazingDamage;
@@ -242,7 +234,6 @@ class Battle {
                 System.out.println("Unknown action: " + action);
                 break;
         }
-        
         return isAttackAction;
     }
 }
