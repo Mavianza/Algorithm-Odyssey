@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class GameMap {
+public class GameMap {
     private NodeRoom root;
     private final Scanner scanner;
 
@@ -84,7 +84,7 @@ class GameMap {
             System.out.println("You've reached the end of this path.");
             return;
         }
-
+        printMap();
         System.out.println("\nChoose your path:");
         if (current.left != null) {
             System.out.println("1. Go to " + current.left.roomName);
@@ -97,6 +97,7 @@ class GameMap {
         }
 
         int choice = getValidInput();
+        Battle.clearScreen();
 
         // rekursif eksplorasi dengan 3 pilihan
         if (choice == 1 && current.left != null) {
@@ -138,4 +139,51 @@ class GameMap {
             }
         }
     }
+    public void printMap() {
+        System.out.println("╔═════════════════════════╗");
+        System.out.println("║       Odyssey Map       ║");
+        System.out.println("╚═════════════════════════╝");
+        if (root != null) {
+            System.out.println(root.roomName +
+                (root.monster != null ? " [Monster: " + root.monster.namaMonster + "]" : ""));
+            String indent = "";
+            
+            boolean hasLeft = root.left != null;
+            boolean hasMiddle = root.middle != null;
+            boolean hasRight = root.right != null;
+            
+            if (hasLeft) {
+                printRoom(root.left, indent, !(hasMiddle || hasRight), 1);
+            }
+            if (hasMiddle) {
+                printRoom(root.middle, indent, !hasRight, 1);
+            }
+            if (hasRight) {
+                printRoom(root.right, indent, true, 1);
+            }
+        }
+    }
+    
+    private void printRoom(NodeRoom current, String indent, boolean isLast, int level) {
+        if (current == null) return;
+
+        System.out.println(indent + (isLast ? "└── " : "├── ") + "[Level " + level + "] " + current.roomName +
+            (current.monster != null ? " [Monster: " + current.monster.namaMonster + "]" : ""));
+
+        indent += isLast ? "    " : "│   ";
+
+        boolean hasLeft = current.left != null;
+        boolean hasMiddle = current.middle != null;
+        boolean hasRight = current.right != null;
+
+        if (hasLeft) {
+            printRoom(current.left, indent, !(hasMiddle || hasRight), level + 1);
+        }
+        if (hasMiddle) {
+            printRoom(current.middle, indent, !hasRight, level + 1);
+        }
+        if (hasRight) {
+            printRoom(current.right, indent, true, level + 1);
+        }
+    }   
 }
